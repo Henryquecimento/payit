@@ -1,10 +1,9 @@
 import { Router } from 'express';
 
-const routes = Router();
+const router = Router();
 
-
-routes.get('/', (req, res) => {
+router.get('/', (req, res) => {
   return res.send("Hey, it's working!");
 });
 
-export { routes };
+export { router };
