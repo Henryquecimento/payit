@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, PrimaryColumn } from "typeorm";
 import { v4 as uuid } from "uuid";
 
 @Entity("transactions")
@@ -8,12 +8,9 @@ class Transaction {
 
   @Column()
   readonly user_id: string;
-  
-  @Column()
-  amount: string;
 
-  @Column()
-  reference: string;
+  @CreateDateColumn()
+  created_at: Date;
 
   constructor () {
     if (!this.id) {
@@ -22,4 +19,4 @@ class Transaction {
   }
 }
 
-export { Transaction }
+export { Transaction };

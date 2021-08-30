@@ -17,20 +17,7 @@ export class CreateTransactions1626368258723 implements MigrationInterface {
                         type: "uuid"
                     },
                     {
-                        name: "amount",
-                        type: "varchar",
-                    },
-                    {
-                        name: "reference",
-                        type: "varchar",
-                    },
-                    {
                         name: "created_at",
-                        type: "timestamp",
-                        default: "now()",
-                    },
-                    {
-                        name: "updated_at",
                         type: "timestamp",
                         default: "now()",
                     }
