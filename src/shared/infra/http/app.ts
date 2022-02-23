@@ -1,16 +1,18 @@
 import "reflect-metadata";
-import express, { Request, Response, NextFunction } from "express";
 import "express-async-errors";
-import { routes } from "./routes";
-import "./app/database";
+import express, { Request, Response, NextFunction } from "express";
+
+import "../typeorm";
 import { AppError } from "../../errors/AppError";
+import { router } from "./routes";
 
 const app = express();
 
 app.use(express.json());
-app.use(routes);
+app.use(router);
 
 app.use(
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   (err: Error, request: Request, response: Response, next: NextFunction) => {
     if (err instanceof AppError) {
       return response.status(err.statusCode).json({
