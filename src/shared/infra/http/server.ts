@@ -1,5 +1,5 @@
 import { app } from "./app";
 
-app.listen(5000, () => {
-    console.log("Server is running normally!")
-})
+app.listen(8888, () => {
+  console.log("Server is running normally!");
+});

@@ -3,7 +3,8 @@ import "express-async-errors";
 import express, { Request, Response, NextFunction } from "express";
 
 import "../typeorm";
-import { AppError } from "../../errors/AppError";
+import { AppError } from "@shared/errors/AppError";
+
 import { router } from "./routes";
 
 const app = express();
