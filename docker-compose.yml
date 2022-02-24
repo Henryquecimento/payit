@@ -1,0 +1,32 @@
+version: "3.9"
+services:
+  database:
+    image: postgres
+    container_name: payit_database
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=rodz
+      - POSTGRES_PASSWORD=rodz
+      - POSTGRES_DB=payit
+    volumes:
+      - pgdata:/data/postgres
+
+  app:
+    build: .
+    container_name: payit
+    restart: always
+    ports:
+      - 8888:8888
+      - 9229:9229
+    volumes:
+      - .:/usr/app
+    links:
+      - database
+    depends_on:
+      - database
+
+volumes:
+  pgdata:
+    driver: local

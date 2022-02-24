@@ -2,11 +2,12 @@ import "reflect-metadata";
 import "express-async-errors";
 import express, { Request, Response, NextFunction } from "express";
 
-import "../typeorm";
 import { AppError } from "@shared/errors/AppError";
 
+import createConnection from "../typeorm";
 import { router } from "./routes";
 
+createConnection();
 const app = express();
 
 app.use(express.json());

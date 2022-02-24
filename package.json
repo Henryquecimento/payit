@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "ts-node-dev -r tsconfig-paths/register --respawn --transpile-only src/shared/infra/http/server.ts",
+    "dev": "ts-node-dev -r tsconfig-paths/register --poll --inspect=0.0.0.0:9229 --respawn --transpile-only src/shared/infra/http/server.ts",
     "typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js"
   },
   "dependencies": {
