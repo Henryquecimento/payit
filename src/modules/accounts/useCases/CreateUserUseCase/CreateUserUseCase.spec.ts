@@ -1,4 +1,5 @@
 import { UserRepositoryInMemory } from "@modules/accounts/repositories/in-memory/UsersRepositoryInMemory";
+import { AppError } from "@shared/errors/AppError";
 
 import { CreateUserUseCase } from "./CreateUserUseCase";
 
@@ -20,5 +21,16 @@ describe("Create User", () => {
     });
 
     expect(user).toHaveProperty("id");
+  });
+
+  it("Should not be able to create a new User with the same email", async () => {
+    await expect(
+      createUserUseCase.execute({
+        name: "Test2",
+        password: "1234",
+        email: "test@test.com",
+        isAdmin: true,
+      })
+    ).rejects.toEqual(new AppError("User already exists!", 400));
   });
 });
