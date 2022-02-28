@@ -5,10 +5,10 @@
   "username": "rodz",
   "password": "rodz",
   "database": "payit",
-  "migrations": ["./src/app/database/migrations/**.ts"],
-  "entities": ["./src/app/entities/**.ts"],
+  "migrations": ["./src/shared/infra/typeorm/migrations/**.ts"],
+  "entities": ["./src/**/modules/entities/**.ts"],
   "cli": {
-    "migrationsDir": "./src/app/database/migrations",
-    "entitiesDir": "./src/app/entities"
+    "migrationsDir": "./src/shared/infra/typeorm/migrations",
+    "entitiesDir": "./modules/**/entities"
   }
 }
