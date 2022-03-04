@@ -1,5 +1,5 @@
-import { ICreateStatementDTO } from "@modules/accounts/dtos/ICreateStatement";
-import { Statement } from "@modules/accounts/infra/typeorm/entities/Statement";
+import { ICreateStatementDTO } from "@modules/statements/dtos/ICreateStatement";
+import { Statement } from "@modules/statements/infra/typeorm/entities/Statement";
 
 import { IStatementRepository } from "../IStatementRepository";
 
