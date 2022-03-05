@@ -8,7 +8,7 @@ import {
 } from "typeorm";
 import { v4 as uuid } from "uuid";
 
-import { Statement } from "./Statement";
+import { Statement } from "@modules/statements/infra/typeorm/entities/Statement";
 
 @Entity("users")
 class User {

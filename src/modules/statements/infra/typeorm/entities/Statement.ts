@@ -8,9 +8,8 @@ import {
 } from "typeorm";
 import { v4 as uuid } from "uuid";
 
-import { OperationType } from "@modules/accounts/enums/OperationType";
-
-import { User } from "./User";
+import { User } from "@modules/accounts/infra/typeorm/entities/User";
+import { OperationType } from "@modules/statements/enums/OperationType";
 
 @Entity("statements")
 class Statement {
