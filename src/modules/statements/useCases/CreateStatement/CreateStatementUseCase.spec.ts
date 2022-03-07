@@ -21,7 +21,7 @@ describe("Create Statement", () => {
     );
   });
 
-  it("Create a Statement of Type Deposit", async () => {
+  it("Should be able to create a statement of type Deposit", async () => {
     const user = await createUsersUseCase.execute({
       name: "Test2",
       password: "1234",
@@ -40,7 +40,7 @@ describe("Create Statement", () => {
     expect(statement.type).toEqual("deposit");
   });
 
-  it("Create a Statement of Type Deposit", async () => {
+  it("Should be able to create a statement of type Withdraw", async () => {
     const user = await createUsersUseCase.execute({
       name: "Test2",
       password: "1234",
