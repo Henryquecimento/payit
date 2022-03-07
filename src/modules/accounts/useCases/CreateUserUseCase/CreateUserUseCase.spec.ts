@@ -1,6 +1,6 @@
 import { UserRepositoryInMemory } from "@modules/accounts/repositories/in-memory/UsersRepositoryInMemory";
-import { AppError } from "@shared/errors/AppError";
 
+import { CreateUserError } from "./CreateUsersError";
 import { CreateUserUseCase } from "./CreateUserUseCase";
 
 let createUserUseCase: CreateUserUseCase;
@@ -31,6 +31,6 @@ describe("Create User", () => {
         email: "test@test.com",
         isAdmin: true,
       })
-    ).rejects.toEqual(new AppError("User already exists!", 400));
+    ).rejects.toBeInstanceOf(CreateUserError.UserNotFound);
   });
 });
