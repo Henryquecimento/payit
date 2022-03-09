@@ -3,6 +3,7 @@ import { CreateUserUseCase } from "@modules/accounts/useCases/CreateUserUseCase/
 import { OperationType } from "@modules/statements/enums/OperationType";
 import { StatementsRepositoryInMemory } from "@modules/statements/repositories/in-memory/StatementsRepositoryInMemory";
 
+import { GetUserBalanceError } from "./GetUserBalanceError";
 import { GetUserBalanceUseCase } from "./GetUserBalanceUseCase";
 
 let usersRepositoryInMemory: UserRepositoryInMemory;
@@ -47,6 +48,29 @@ describe("Get User Balance", () => {
       user_id: user.id,
     });
 
-    console.log(balance);
+    expect(balance).toHaveProperty("statement");
+    expect(balance).toHaveProperty("balance");
+    expect(balance.balance).toEqual(20);
+  });
+  it("Should not be able to get balance of a non existent user", () => {
+    expect(async () => {
+      await statementsRepositoryInMemory.create({
+        user_id: "non_existent_user_id",
+        amount: 120,
+        description: "Test with Deposit",
+        type: OperationType.DEPOSIT,
+      });
+
+      await statementsRepositoryInMemory.create({
+        user_id: "non_existent_user_id",
+        amount: 100,
+        description: "Test with Withdraw",
+        type: OperationType.WITHDRAW,
+      });
+
+      await getUserBalanceUseCase.execute({
+        user_id: "non_existent_user_id",
+      });
+    }).rejects.toBeInstanceOf(new GetUserBalanceError());
   });
 });
