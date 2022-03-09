@@ -71,6 +71,6 @@ describe("Get User Balance", () => {
       await getUserBalanceUseCase.execute({
         user_id: "non_existent_user_id",
       });
-    }).rejects.toBeInstanceOf(new GetUserBalanceError());
+    }).rejects.toBeInstanceOf(GetUserBalanceError);
   });
 });
