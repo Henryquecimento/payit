@@ -2,6 +2,7 @@ import { getRepository, Repository } from "typeorm";
 
 import { ICreateStatementDTO } from "@modules/statements/dtos/ICreateStatement";
 import { IGetBalanceDTO } from "@modules/statements/dtos/IGetBalanceDTO";
+import { IGetStatementOperationDTO } from "@modules/statements/dtos/IGetStatementDTO";
 import { IStatementRepository } from "@modules/statements/repositories/IStatementRepository";
 
 import { Statement } from "../entities/Statement";
@@ -58,6 +59,17 @@ class StatementsRepository implements IStatementRepository {
     }
 
     return { balance };
+  }
+
+  async findStatementOperation({
+    user_id,
+    statement_id,
+  }: IGetStatementOperationDTO): Promise<Statement> {
+    return this.repository.findOne(statement_id, {
+      where: {
+        user_id,
+      },
+    });
   }
 }
 

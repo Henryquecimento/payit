@@ -1,5 +1,6 @@
 import { ICreateStatementDTO } from "@modules/statements/dtos/ICreateStatement";
 import { IGetBalanceDTO } from "@modules/statements/dtos/IGetBalanceDTO";
+import { IGetStatementOperationDTO } from "@modules/statements/dtos/IGetStatementDTO";
 import { Statement } from "@modules/statements/infra/typeorm/entities/Statement";
 
 import { IStatementRepository } from "../IStatementRepository";
@@ -54,6 +55,16 @@ class StatementsRepositoryInMemory implements IStatementRepository {
     }
 
     return { balance };
+  }
+
+  async findStatementOperation({
+    user_id,
+    statement_id,
+  }: IGetStatementOperationDTO): Promise<Statement | undefined> {
+    return this.statements.find(
+      (operation) =>
+        operation.id === statement_id && operation.user_id === user_id
+    );
   }
 }
 
