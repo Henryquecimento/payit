@@ -2,6 +2,7 @@ import { inject } from "tsyringe";
 
 import { IUsersRepository } from "@modules/accounts/repositories/IUsersRepository";
 import { IStatementRepository } from "@modules/statements/repositories/IStatementRepository";
+
 import { GetStatementOperationError } from "./GetStatementOperationError";
 
 interface IRequest {
