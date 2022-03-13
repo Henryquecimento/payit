@@ -4,6 +4,7 @@ import { OperationType } from "@modules/statements/enums/OperationType";
 import { StatementsRepositoryInMemory } from "@modules/statements/repositories/in-memory/StatementsRepositoryInMemory";
 
 import { CreateStatementUseCase } from "../CreateStatement/CreateStatementUseCase";
+import { GetStatementOperationError } from "./GetStatementOperationError";
 import { GetStatementOperationUseCase } from "./GetStatementOperationUseCase";
 
 let usersRepositoryInMemory: UserRepositoryInMemory;
@@ -49,5 +50,14 @@ describe("Get Statement Operation", () => {
 
     expect(statementOperation).toHaveProperty("id");
     expect(statementOperation.type).toEqual("deposit");
+  });
+
+  it("Should not be able to show an statement operation of a non-existent", () => {
+    expect(async () => {
+      await getStatementOperationUseCase.execute({
+        user_id: "non_existing_user_id",
+        statement_id: "non_existing_statement_id",
+      });
+    }).rejects.toBeInstanceOf(GetStatementOperationError);
   });
 });
