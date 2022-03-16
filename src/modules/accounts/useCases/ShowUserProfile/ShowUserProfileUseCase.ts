@@ -1,7 +1,8 @@
 import { inject, injectable } from "tsyringe";
 
 import { IUsersRepository } from "@modules/accounts/repositories/IUsersRepository";
-import { AppError } from "@shared/errors/AppError";
+
+import { ShowUserProfileError } from "./ShowUserProfileError";
 
 @injectable()
 class ShowUserProfileUseCase {
@@ -13,7 +14,7 @@ class ShowUserProfileUseCase {
   async execute(user_id: string) {
     const user = await this.usersRepository.findById(user_id);
 
-    if (!user) throw new AppError("User Not Found", 400);
+    if (!user) throw new ShowUserProfileError();
 
     return user;
   }
