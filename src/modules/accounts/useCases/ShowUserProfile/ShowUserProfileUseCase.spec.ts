@@ -1,6 +1,7 @@
 import { UserRepositoryInMemory } from "@modules/accounts/repositories/in-memory/UsersRepositoryInMemory";
 
 import { CreateUserUseCase } from "../CreateUserUseCase/CreateUserUseCase";
+import { ShowUserProfileError } from "./ShowUserProfileError";
 import { ShowUserProfileUseCase } from "./ShowUserProfileUseCase";
 
 let usersRepositoryInMemory: UserRepositoryInMemory;
@@ -27,5 +28,11 @@ describe("Show User Profile", () => {
     const userProfile = await showUserProfileUseCase.execute(user.id);
 
     expect(userProfile).toHaveProperty("id");
+  });
+
+  it("Should not be able to show a profile for a non-existent user", async () => {
+    expect(async () => {
+      await showUserProfileUseCase.execute("non_existent_user");
+    }).rejects.toBeInstanceOf(ShowUserProfileError);
   });
 });
