@@ -1,3 +1,4 @@
+import { hash } from "bcryptjs";
 import { inject, injectable } from "tsyringe";
 
 import { ICreateUsersDTO } from "@modules/accounts/dtos/ICreateUsersDTO";
@@ -25,9 +26,11 @@ class CreateUserUseCase {
 
     if (userAlreadyExists) throw new CreateUserError.UserNotFound();
 
+    const passwordHash = await hash(password, 8);
+
     const user = await this.usersrepository.create({
       name,
-      password,
+      password: passwordHash,
       email,
       isAdmin,
     });
