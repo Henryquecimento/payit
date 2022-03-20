@@ -9,7 +9,7 @@ import { IUsersRepository } from "@modules/accounts/repositories/IUsersRepositor
 import { IncorrectEmailOrPassword } from "./IncorrectEmailOrPassword.ts";
 
 interface IRequest {
-  user_id: string;
+  email: string;
   password: string;
 }
 
@@ -19,16 +19,20 @@ class AuthenticateUserUseCase {
     private usersRepository: IUsersRepository
   ) {}
 
-  async execute({ user_id, password }: IRequest): Promise<IAuthenticateDTO> {
-    const user = await this.usersRepository.findById(user_id);
+  async execute({ email, password }: IRequest): Promise<IAuthenticateDTO> {
+    const user = await this.usersRepository.findByEmail(email);
 
-    if (!user) throw new IncorrectEmailOrPassword();
+    if (!user) {
+      throw new IncorrectEmailOrPassword();
+    }
 
     const passwordMatch = await compare(password, user.password);
 
-    if (!passwordMatch) throw new IncorrectEmailOrPassword();
+    if (!passwordMatch) {
+      throw new IncorrectEmailOrPassword();
+    }
 
-    const { secret, expiresIn } = AuthConfig.JWT;
+    const { secret, expiresIn } = AuthConfig.jwt;
 
     const token = sign({ user }, secret, {
       subject: user.id,
