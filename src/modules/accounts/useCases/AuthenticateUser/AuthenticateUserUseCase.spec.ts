@@ -3,6 +3,7 @@ import { UserRepositoryInMemory } from "@modules/accounts/repositories/in-memory
 
 import { CreateUserUseCase } from "../CreateUserUseCase/CreateUserUseCase";
 import { AuthenticateUserUseCase } from "./AuthenticateUserUseCase";
+import { IncorrectEmailOrPassword } from "./IncorrectEmailOrPassword.ts";
 
 let userRepositoryInMemory: UserRepositoryInMemory;
 let createUserUseCase: CreateUserUseCase;
@@ -31,5 +32,21 @@ describe("Authenticate User", () => {
     });
 
     expect(auth).toHaveProperty("token");
+  });
+
+  it("Should not be able to authenticate an User with wrong password", () => {
+    expect(async () => {
+      const user: ICreateUsersDTO = await createUserUseCase.execute({
+        name: "User Test",
+        email: "user@test.com",
+        password: "test",
+        isAdmin: true,
+      });
+
+      await authenticateUserUseCase.execute({
+        email: user.email,
+        password: "wrong_password",
+      });
+    }).rejects.toBeInstanceOf(IncorrectEmailOrPassword);
   });
 });
