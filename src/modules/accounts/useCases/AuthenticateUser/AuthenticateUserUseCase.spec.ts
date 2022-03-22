@@ -49,4 +49,20 @@ describe("Authenticate User", () => {
       });
     }).rejects.toBeInstanceOf(IncorrectEmailOrPassword);
   });
+
+  it("Should not be able to authenticate an User with wrong email", () => {
+    expect(async () => {
+      await createUserUseCase.execute({
+        name: "User Test",
+        email: "user@test.com",
+        password: "test",
+        isAdmin: true,
+      });
+
+      await authenticateUserUseCase.execute({
+        email: "wrong_email",
+        password: "test",
+      });
+    }).rejects.toBeInstanceOf(IncorrectEmailOrPassword);
+  });
 });
