@@ -5,6 +5,7 @@ import express, { Request, Response, NextFunction } from "express";
 import { AppError } from "@shared/errors/AppError";
 
 import createConnection from "../typeorm";
+import "@shared/containers";
 import { router } from "./routes";
 
 createConnection();
