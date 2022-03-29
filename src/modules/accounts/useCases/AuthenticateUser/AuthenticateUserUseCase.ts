@@ -1,6 +1,6 @@
 import { compare } from "bcryptjs";
 import { sign } from "jsonwebtoken";
-import { inject } from "tsyringe";
+import { inject, injectable } from "tsyringe";
 
 import AuthConfig from "@config/AuthConfig";
 import { IAuthenticateDTO } from "@modules/accounts/dtos/IAuthenticateDTO";
@@ -12,7 +12,7 @@ interface IRequest {
   email: string;
   password: string;
 }
-
+@injectable()
 class AuthenticateUserUseCase {
   constructor(
     @inject("UsersRepository")
