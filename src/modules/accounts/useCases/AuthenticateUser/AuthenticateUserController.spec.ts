@@ -35,4 +35,13 @@ describe("Authenticate User", () => {
     expect(responseSession.status).toBe(200);
     expect(responseSession.body).toHaveProperty("token");
   });
+
+  it("Should not be able to create a user authentication if password is incorrect", async () => {
+    const responseSession = await request(app).post("/sessions").send({
+      email: "admin@admin.com",
+      password: "wrong_password",
+    });
+
+    expect(responseSession.status).toBe(401);
+  });
 });
